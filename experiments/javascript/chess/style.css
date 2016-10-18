@@ -1,0 +1,43 @@
+/*
+ File: /~ksanders/experiments/javascript/chess/style.css
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
+u
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
+ May be freely copied or excerpted for educational purposes with credit to the \
+author.
+*/
+@import url("../style.css");
+#container {
+    width: 600px;
+    height: 600px;
+    /*position: relative;*/
+    background: yellow;
+    boarder: 3px solid gray;
+}
+#animate {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background: red;
+}
+
+/*divs contained within a div that is of class row */					
+div.row div {
+width: 75px;
+height: 75px;
+}
+		
+div.row div.bl { background-color: gray; }
+div.row div.wh { background-color: white; }
+		
+div.row div {
+float: left;
+}
+			
+div.row:after {
+content: ".";
+height: 0;
+visibility: hidden;
+display: block;
+clear: both;
+}

@@ -1,0 +1,129 @@
+footer {
+    font-family: Georgia, "Times New Roman", serif;
+    font-style:italic;
+    margin-left:200px;
+    padding-left:30px;
+    padding-bottom:20px;
+    background-color: #FFFFFF;
+    display:inline-block;
+    min-width:370px;
+}
+header, hgroup, nav, footer, figure, figcaption, aside, section, article {
+	display: block;
+}
+body {
+    background-image: url("ptrbackground.jpg") ;
+    background-color: #00569f;
+    background-repeat: repeat-x;
+    margin-left:10%;
+    margin-right:10%;
+    color: #666666;
+    font-family: Arial, Helvetica, sans-serif;
+    min-width:400px;
+}
+nav a:hover, nav a:visited, nav a:link, nav a:active
+{
+    text-decoration: none;
+}
+header{
+    color:white;
+    background-image: url("sunset.jpg");
+    background-repeat: no-repeat;
+    background-position:right bottom;
+    background-color:RGB(2,0,50);
+    background-size:auto 100%;
+    min-width:600px;
+ 
+}
+
+nav {
+ 
+    background-color: #90c8e3;
+    display:inline;
+    float:left;
+    width:190px;
+    min-width:190px;
+    height:100%;
+}
+ul{
+ }
+nav ul{
+    font-size: 1.2em;
+    font-weight:bold;
+    height:100%;
+    list-style:none;
+    
+}
+nav a:link{
+    color:RGB(2,0,50);
+}
+nav a:visited {
+	color: #344873;
+}
+nav a:hover {
+	color: #FFFFFF;
+}
+h1 {
+	margin-bottom: 0px;
+	padding: 20px;
+}
+h2 {
+    color: #3399CC;
+    padding:20px;
+    padding-left:0px;
+    margin: 0px;
+}
+h1, h2 {
+    font-family: Georgia, "Times New Roman", serif;
+}
+#wrapper{
+    background-color: #90c8e3;
+}
+    
+#content img{
+    display:block;
+    float:left;
+    margin-left:0px;
+    margin-right: 30px;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+.resort{
+    color:#6098b3;
+    font-weight:bold;
+}
+#content ul{
+    display:block;
+    margin-left:0px;
+    list-style-image:url('marker.gif');
+    
+}
+#content ul li{
+    padding-left:0px;
+    margin-left:0px;
+    list-style-position:inside;
+}
+
+#content{
+    background-color: white;
+    margin-left:200px;
+    display:block;
+    min-width:370px;
+    padding-left:30px;
+}
+#content p{
+    margin-top:0px;
+    margin-left:0px;
+    margin-right:10px;
+}
+
+#contact {
+    font-size: 90%;
+    margin-left:0px;
+    display:inline-block;
+}
+dt {
+    color: #000033;
+}
+
+

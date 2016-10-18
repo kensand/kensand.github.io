@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--
+ File: /~ksanders/experiments/javascript/chess/chess.html
+ 91.461 Assignment: Creating Your First Web Page
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
+u
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
+ May be freely copied or excerpted for educational purposes with credit to the \
+author.
+-->
+<html>
+  <!-- header -->
+    <head>
+        <title>Chess</title>
+        <link rel='stylesheet' type='text/css' href='style.css'/>
+    </head>
+    
+  <body>
+    <h1>
+      Chess (work in progress)
+    </h1>
+    <hr/>
+    <script type="text/javascript" src="chess.js"></script>
+    <!-- start game button -->
+    <button onclick="game('human', 'human')">2 Player</button>
+    <!-- chess board container -->
+    <div id="container">
+      <div class="row">
+	<div class="wh" id="00" onclick="processClick(this.id)"></div>
+	<div class="bl" id="01" onclick="processClick(this.id)"></div>
+	<div class="wh" id="02" onclick="processClick(this.id)"></div>
+	<div class="bl" id="03" onclick="processClick(this.id)"></div>
+	<div class="wh" id="04" onclick="processClick(this.id)"></div>
+	<div class="bl" id="05" onclick="processClick(this.id)"></div>
+	<div class="wh" id="06" onclick="processClick(this.id)"></div>
+	<div class="bl" id="07" onclick="processClick(this.id)"></div>
+      </div>		  
+      
+      <div class="row"> 
+	<div class="bl" id="10" onclick="processClick(this.id)"></div>
+	<div class="wh" id="11" onclick="processClick(this.id)"></div>
+	<div class="bl" id="12" onclick="processClick(this.id)"></div>
+	<div class="wh" id="13" onclick="processClick(this.id)"></div>
+	<div class="bl" id="14" onclick="processClick(this.id)"></div>
+	<div class="wh" id="15" onclick="processClick(this.id)"></div>
+	<div class="bl" id="16" onclick="processClick(this.id)"></div>
+	<div class="wh" id="17" onclick="processClick(this.id)"></div>
+      </div>		  
+      
+      <div class="row"> 
+	<div class="wh" id="20" onclick="processClick(this.id)"></div>
+	<div class="bl" id="21" onclick="processClick(this.id)"></div>
+	<div class="wh" id="22" onclick="processClick(this.id)"></div>
+	<div class="bl" id="23" onclick="processClick(this.id)"></div>
+	<div class="wh" id="24" onclick="processClick(this.id)"></div>
+	<div class="bl" id="25" onclick="processClick(this.id)"></div>
+	<div class="wh" id="26" onclick="processClick(this.id)"></div>
+	<div class="bl" id="27" onclick="processClick(this.id)"></div>
+      </div>		  
+      
+      <div class="row"> 
+	<div class="bl" id="30" onclick="processClick(this.id)"></div>
+	<div class="wh" id="31" onclick="processClick(this.id)"></div>
+	<div class="bl" id="32" onclick="processClick(this.id)"></div>
+	<div class="wh" id="33" onclick="processClick(this.id)"></div>
+	<div class="bl" id="34" onclick="processClick(this.id)"></div>
+	<div class="wh" id="35" onclick="processClick(this.id)"></div>
+	<div class="bl" id="36" onclick="processClick(this.id)"></div>
+	<div class="wh" id="37" onclick="processClick(this.id)"></div>
+      </div>		  
+      
+      <div class="row"> 
+	<div class="wh" id="40" onclick="processClick(this.id)"></div>
+	<div class="bl" id="41" onclick="processClick(this.id)"></div>
+	<div class="wh" id="42" onclick="processClick(this.id)"></div>
+	<div class="bl" id="43" onclick="processClick(this.id)"></div>
+	<div class="wh" id="44" onclick="processClick(this.id)"></div>
+	<div class="bl" id="45" onclick="processClick(this.id)"></div>
+	<div class="wh" id="46" onclick="processClick(this.id)"></div>
+	<div class="bl" id="47" onclick="processClick(this.id)"></div>
+      </div>		  
+      
+      <div class="row"> 
+	<div class="bl" id="50" onclick="processClick(this.id)"></div>
+	<div class="wh" id="51" onclick="processClick(this.id)"></div>
+	<div class="bl" id="52" onclick="processClick(this.id)"></div>
+	<div class="wh" id="53" onclick="processClick(this.id)"></div>
+	<div class="bl" id="54" onclick="processClick(this.id)"></div>
+	<div class="wh" id="55" onclick="processClick(this.id)"></div>
+	<div class="bl" id="56" onclick="processClick(this.id)"></div>
+	<div class="wh" id="57" onclick="processClick(this.id)"></div>
+      </div>		  
+      <div class="row"> 
+	<div class="wh" id="60" onclick="processClick(this.id)"></div>
+	<div class="bl" id="61" onclick="processClick(this.id)"></div>
+	<div class="wh" id="62" onclick="processClick(this.id)"></div>
+	<div class="bl" id="63" onclick="processClick(this.id)"></div>
+	<div class="wh" id="64" onclick="processClick(this.id)"></div>
+	<div class="bl" id="65" onclick="processClick(this.id)"></div>
+	<div class="wh" id="66" onclick="processClick(this.id)"></div>
+	<div class="bl" id="67" onclick="processClick(this.id)"></div>
+      </div>		  
+      <div class="row"> 
+	<div class="bl" id="70" onclick="processClick(this.id)"></div>
+	<div class="wh" id="71" onclick="processClick(this.id)"></div>
+	<div class="bl" id="72" onclick="processClick(this.id)"></div>
+	<div class="wh" id="73" onclick="processClick(this.id)"></div>
+	<div class="bl" id="74" onclick="processClick(this.id)"></div>
+	<div class="wh" id="75" onclick="processClick(this.id)"></div>
+	<div class="bl" id="76" onclick="processClick(this.id)"></div>
+	<div class="wh" id="77" onclick="processClick(this.id)"></div>
+      </div>
+      
+    </div>
+    <hr/>
+    <!-- chess pieces found here: https://openclipart.org/detail/24125/chess-symbols-set
+	 used for educational purposes only-->
+    <a href="https://openclipart.org/detail/24125/chess-symbols-set">Credits for piece images</a>
+    <hr/>
+    <a href="../../../index.html">Home</a> | <a href="../../index.html">Experiments</a>
+
+  </body>
+</html>
