@@ -1,0 +1,138 @@
+/*
+ File: /~ksanders/css/tyle.css
+ 91.461 Assignment: Creating Your First Web Page
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
+u
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
+ May be freely copied or excerpted for educational purposes with credit to the \
+author.
+*/
+
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: black;
+    color: white;
+    text-align:center;
+    min-width: 300px;
+    border:solid;
+    border-color: white;
+    border-width:2px;
+}
+
+ol{
+    text-align: left;
+}
+
+ul{
+    text-align: left;
+}
+
+p{
+    max-width: 600px;
+    min-width: 300px;
+}
+
+
+/*link properties*/
+a:link{
+    color: yellow;
+}
+
+a:visited{
+    color: green;
+}
+
+a:hover{
+    color:orange;
+}
+
+a:active{
+    color:red;
+}
+
+
+
+/*dropdown menu class*/
+.dropdown{
+    display:inline-block;
+}
+
+.dropdown ol{
+    display:none;
+}
+
+
+/*dropdown menu when hovering over respective div*/
+.dropdown:hover ol{
+    background-color:#202020;
+    position:absolute;
+    display:block;
+    padding:10px 10px 10px 20px;
+    margin:10px 0px 0px 0px;
+}
+
+.dropdown h2{
+    margin:0px;
+    cursor:default;
+}
+
+/*left and right classes to float elements respectively*/
+.left{
+    float:left;
+}
+
+.right{
+    float:right;
+}
+
+
+/*menu id's for the dropdown elements in the menu*/
+#menu{
+    display:inline-block;
+}
+
+#menu div{
+    display:block;
+    border:solid;
+    border-color:black;
+    border-radius:5px;
+    padding:10px;
+    background-color:#207020;
+}
+
+
+/*make image of tux spin when hovered over */
+#tux{
+    transition: all 0.5s ease-in-out 0.1s;
+}
+
+#tux:hover
+{
+    cursor: default;
+    transform: rotate(360deg);
+    transition: all 0.5s ease-in-out 0.1s;
+}
+
+
+
+/*validator certification element properties*/
+#valid{
+    text-align:center;
+}
+
+#valid a{
+    display:inline-block;
+}
+
+.validimg{
+    border:0;
+    width:88px;
+    height:31px
+}

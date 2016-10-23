@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+ File: /~ksanders/experiments/javascript/minesweeper/minesweeper.html
+ 91.461 Assignment: Creating Your First Web Page
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
+u
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
+ May be freely copied or excerpted for educational purposes with credit to the \
+author.
+-->
+<html>
+  <!-- header -->
+    <head>
+        <title>Minesweeper</title>
+        <link rel='stylesheet' type='text/css' href='style.css'/>
+    </head>
+    <!-- body -->
+  <body>
+    <h1>
+      Minesweeper
+    </h1>
+    <hr/>
+    <script type="text/javascript" src="minesweeper.js"></script>
+    <!-- game parameter input area -->
+    <div>
+      Height: <input id="height" type="number" name="height" value="20">
+      Width: <input id="width" type="number" name="width" value="20">
+      Mines: <input id="mines" type="number" name="mines" value="75">
+      <button onclick="game()">Play</button>
+    </div>
+    <hr/>
+    <!-- game container -->
+    <div id="container">
+    </div>
+    <hr/>
+    <a href="../index.html">Home</a> | <a href="../experiments/index.html">Experiments</a>
+  </body>
+</html>

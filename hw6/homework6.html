@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+ File: /~ksanders/homework6.html
+ 91.461 Assignment: Creating Your First Web Page
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.edu
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved. 
+ May be freely copied or excerpted for educational purposes with credit to the author.
+
+  -->
+<html>
+  <!-- header -->
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Javascript Multiplication Table
+    </title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <h2>
+      Javascript Multiplication Table
+    </h2>
+    <hr/>
+    <div id="container">
+      <div id="form">
+      <label for="xmin">X-min</label>
+      <input name="xmin" id="xmin" type="number" onkeypress="return isNumberKey(event)" value="1"/>
+      <label for="xmin">X-max</label>
+      <input name="xmax" id="xmax" type="number" onkeypress="return isNumberKey(event)" value="5"/>
+      <br/>
+      <label for="xmin">Y-min</label>
+      <input name="ymin" id="ymin" type="number" onkeypress="return isNumberKey(event)" value="1"/>
+      <label for="xmin">Y-max</label>
+      <input name="ymax" id="ymax" type="number" onkeypress="return isNumberKey(event)" value="5"/>
+      </div>
+      <br/>
+      <button onclick="submit();">Submit</button>
+      <table id="multTable">
+      </table>
+     
+
+
+    </div>
+    
+    <hr/>
+    <a href="../index.html">Home</a> | <a href="../experiments/index.html">Experiments</a>
+  </body>
+  <script type="text/javascript" src="multTable.js"></script>
+</html>

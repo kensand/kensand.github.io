@@ -1,0 +1,37 @@
+/*
+ File: /~ksanders/experiments/style.css
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
+u
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
+ May be freely copied or excerpted for educational purposes with credit to the \
+author.
+*/
+@import url("../css/style.css");
+
+input{
+    margin:5px;
+}
+#multTable tr td, #multTable th, #multTable{
+    border:1px solid;
+    border-color:white;
+    border-collapse: collapse;
+}
+#multTable{
+    display:none;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top:10px;
+   
+}
+#container{
+   
+    text-align:center;
+}
+
+.inlinecenter{
+  
+}
+#form{
+    margin-left: auto;
+    margin-right: auto;
+}
