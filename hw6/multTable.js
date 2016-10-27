@@ -93,7 +93,7 @@ function submit(){
     }
     //create top left cell with labels for table
     var cell = row.insertCell(0);
-    cell.innerHTML = "y\\x";
+    cell.innerHTML = "X*Y";
     cell.className = "theader";
     return false;
 }
