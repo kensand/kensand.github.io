@@ -1,9 +1,0 @@
-/*
- File: /~ksanders/experiments/style.css
- Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
-u
- Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
- May be freely copied or excerpted for educational purposes with credit to the \
-author.
-*/
-@import url("../css/style.css");

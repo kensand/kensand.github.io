@@ -17,34 +17,58 @@
     <link rel="stylesheet" href="style.css">
   </head>
 
+  <!--Body -->
   <body>
+
+    <!-- Title -->
     <h2>
       Javascript Multiplication Table
     </h2>
     <hr/>
+
+    <!-- container for form and table -->
+    <div id="usage">
+      <h3>Usage</h3>
+      <p>
+	X are the horizontal values, Y are the vertical values. <br/>
+	Fill in the form below with minimum and maximum values for X and Y. <br/>
+	Press "Create Table" to generate the multiplication table. 
+      </p>
+    </div>
+    <hr/>
     <div id="container">
       <div id="form">
-      <label for="xmin">X-min</label>
-      <input name="xmin" id="xmin" type="number" onkeypress="return isNumberKey(event)" value="1"/>
-      <label for="xmin">X-max</label>
-      <input name="xmax" id="xmax" type="number" onkeypress="return isNumberKey(event)" value="5"/>
-      <br/>
-      <label for="xmin">Y-min</label>
-      <input name="ymin" id="ymin" type="number" onkeypress="return isNumberKey(event)" value="1"/>
-      <label for="xmin">Y-max</label>
-      <input name="ymax" id="ymax" type="number" onkeypress="return isNumberKey(event)" value="5"/>
+	<form>
+	  <label for="xmin">X-min</label>
+	  <input name="xmin" id="xmin" type="number" value="1"/>
+	  <label for="xmin">X-max</label>
+	  <input name="xmax" id="xmax" type="number" value="5"/>
+	  <br/>
+	  <label for="xmin">Y-min</label>
+	  <input name="ymin" id="ymin" type="number" value="1"/>
+	  <label for="xmin">Y-max</label>
+	  <input name="ymax" id="ymax" type="number" value="5"/>
+	</form>
       </div>
       <br/>
-      <button onclick="submit();">Submit</button>
-      <table id="multTable">
-      </table>
-     
+      <!-- create table button-->
+      <button onclick="submit();">Create Table</button>
+
+      <!-- div to make table scrollable-->
+      <div id="scroll">
+	<!-- empty table -->
+	<table id="multTable">
+	</table>
+      </div>
 
 
     </div>
-    
+
+    <!-- footer -->
     <hr/>
     <a href="../index.html">Home</a> | <a href="../experiments/index.html">Experiments</a>
   </body>
+
+  <!-- javascript for multiplication table -->
   <script type="text/javascript" src="multTable.js"></script>
 </html>

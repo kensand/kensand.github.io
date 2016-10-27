@@ -1,21 +1,28 @@
 /*
- File: /~ksanders/experiments/style.css
+ File: /~ksanders/hw6/style.css
  Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
 u
  Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
  May be freely copied or excerpted for educational purposes with credit to the \
 author.
 */
+
+/*import parent css*/
 @import url("../css/style.css");
 
 input{
     margin:5px;
 }
+
+/*styling for multable and its data */
 #multTable tr td, #multTable th, #multTable{
     border:1px solid;
     border-color:white;
     border-collapse: collapse;
+    padding:3px;
 }
+
+
 #multTable{
     display:none;
    margin-left: auto;
@@ -23,15 +30,29 @@ input{
    margin-top:10px;
    
 }
+
+/*center all elements in container */
 #container{
    
     text-align:center;
 }
 
-.inlinecenter{
-  
-}
+/*center elements of form div */
 #form{
     margin-left: auto;
     margin-right: auto;
+}
+
+/*allow scrolling and set max dims of scroll */
+#scroll{
+    overflow:auto;
+    max-width:590px;
+    max-height:590px;
+    margin:10px;
+}
+
+/*make headings for table look different from data*/
+.theader{
+    font-weight:800;
+    background-color:#0000CC;
 }
