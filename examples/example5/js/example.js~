@@ -1,38 +1,10 @@
-// Create variables for the welcome message
-var greeting = ' ';
-var name = '';
-var message = ', please check your order:';
-// Concatenate the three variables above to create the welcome message
-var welcome = greeting + name + message;
+// ADD NEW ITEM TO END OF LIST
 
-// Create variables to hold details about the sign
-var sign = ;
-var tiles = ;
-var subTotal = ;
-var shipping = ;
-var grandTotal = ;
 
-// Get the element that has an id of greeting
-var el = document.getElementById('greeting');
-// Replace the content of that element with the personalized welcome message
-el.textContent = welcome;
+// ADD NEW ITEM START OF LIST
 
-// Get the element that has an id of userSign then update its contents
-var elSign = document.getElementById('userSign');
-elSign.textContent = sign;
 
-// Get the element that has an id of tiles then update its contents
-var elTiles = document.getElementById('tiles');
-elTiles.textContent = tiles;
+// ADD A CLASS OF COOL TO ALL LIST ITEMS
 
-// Get the element that has an id of subTotal then update its contents
-var elSubTotal = document.getElementById('subTotal');
-elSubTotal.textContent = '$' + subTotal;
 
-// Get the element that has an id of shipping then update its contents
-var elShipping = document.getElementById('shipping');
-elShipping.textContent = '$' + shipping;
-
-// Get the element that has an id of grandTotal then update its contents
-var elGrandTotal = document.getElementById('grandTotal');
-elGrandTotal.textContent = '$' + grandTotal;
+// ADD NUMBER OF ITEMS IN THE LIST TO THE HEADING

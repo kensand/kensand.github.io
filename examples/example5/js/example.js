@@ -1,54 +1,29 @@
-// Create variables for the welcome message
+// ADD NEW ITEM TO END OF LIST
+var one = document.getElementById("one");
+var list = one.parentElement;
+var newLI = document.createElement("LI");
+newLI.appendChild(document.createTextNode("kale"));
+list.appendChild(newLI);
 
-var date = new Date();
-var hour=date.getHours();
-var greeting;
-if(hour >= 0 && hour < 12){
-greeting = 'Good morning ';
+		 
+
+// ADD NEW ITEM START OF LIST
+newLI = document.createElement("li");
+newLI.appendChild(document.createTextNode("cream"));
+list.insertBefore(newLI, list.childNodes[0]);
+// ADD A CLASS OF COOL TO ALL LIST ITEMS
+for(i = 0; i < list.childNodes.length; i++){
+    list.childNodes[i].className += " cool";
 }
-else if(hour >= 12 && hour < 17){
-greeting = 'Good afternoon ';
+
+// ADD NUMBER OF ITEMS IN THE LIST TO THE HEADING
+var newP = document.createElement("span");
+var page = document.getElementById("page");
+var l = 0;
+for(i = 0 ; i < list.childNodes.length; i++){
+    //console.log(list.childNodes[i].innerHTML);
+    if(list.childNodes[i].nodeType === 1){
+	l+=1;
+    }
 }
-else if(hour >= 17 && hour < 23){
-greeting = 'Good evening ';
-}
-else{
-greeting = 'Welcome ';
-}
-
-var name = 'Kenny';
-var message = ', please check your order:';
-// Concatenate the three variables above to create the welcome message
-var welcome = greeting + name + message;
-
-// Create variables to hold details about the sign
-var sign = 'Home Sweet Home' ;
-var tiles = sign.length;
-var subTotal = 5 * tiles ;
-var shipping = 7;
-var grandTotal = subTotal + shipping;
-
-// Get the element that has an id of greeting
-var el = document.getElementById('greeting');
-// Replace the content of that element with the personalized welcome message
-el.textContent = welcome;
-
-// Get the element that has an id of userSign then update its contents
-var elSign = document.getElementById('userSign');
-elSign.textContent = sign;
-
-// Get the element that has an id of tiles then update its contents
-var elTiles = document.getElementById('tiles');
-elTiles.textContent = tiles;
-
-// Get the element that has an id of subTotal then update its contents
-var elSubTotal = document.getElementById('subTotal');
-elSubTotal.textContent = '$' + subTotal;
-
-// Get the element that has an id of shipping then update its contents
-var elShipping = document.getElementById('shipping');
-elShipping.textContent = '$' + shipping;
-
-// Get the element that has an id of grandTotal then update its contents
-var elGrandTotal = document.getElementById('grandTotal');
-elGrandTotal.textContent = '$' + grandTotal;
+list.parentElement.childNodes[3].innerHTML += "<span>" + l + "</span>";
