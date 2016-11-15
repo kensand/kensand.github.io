@@ -6,16 +6,58 @@ u
  May be freely copied or excerpted for educational purposes with credit to the \
 author.
 */
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+
+$("#multDims").on('submit', function (e) {
+   //ajax call here
+   submit();
+   //stop form submission
+    e.preventDefault();
+    return false;
+});
+
+$( "#multDims" ).validate({
+  rules: {
+      xmin: {
+	  required: true,
+	  digits: true
+      },
+      xmax: {
+	  required: true,
+	  digits: true
+      },
+      ymin: {
+	  required: true,
+	  digits: true
+      },
+      ymax: {
+	  required: true,
+	  digits: true
+      }
+  }//,
+  //submitHandler: function(form) {
+    // do other things for a valid form
+  //  submit();
+  //}  
+});
+
+
 
 
 /*function to process input values and dynamically add to the empty table*/
 function submit(){
-
-    /*check to make sure there is actually a number in each input*/
-    if(document.getElementById("xmin").value.length == 0){
-	window.alert("Please enter a value for X-min");
+    console.log("submitted");
+    if(!$("#multDims").valid()){
 	return false;
     }
+    /*check to make sure there is actually a number in each input*/
+    //if(document.getElementById("xmin").value.length == 0){
+    //window.alert("Please enter a value for X-min");
+	//return false;
+    //}
     if(document.getElementById("xmax").value.length == 0){
 	window.alert("Please enter a value for X-max");
 	return false;

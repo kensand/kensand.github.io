@@ -38,7 +38,7 @@
     <hr/>
     <div id="container">
       <div id="form">
-	<form>
+	<form id="multDims">
 	  <label for="xmin">X-min</label>
 	  <input name="xmin" id="xmin" type="number" value="1"/>
 	  <label for="xmin">X-max</label>
@@ -48,11 +48,13 @@
 	  <input name="ymin" id="ymin" type="number" value="1"/>
 	  <label for="xmin">Y-max</label>
 	  <input name="ymax" id="ymax" type="number" value="5"/>
+	  <br/>
+	  <input type="submit" value="Create Table" >
 	</form>
       </div>
       <br/>
       <!-- create table button-->
-      <button onclick="submit();">Create Table</button>
+      <!--<button onclick="submit();">Create Table</button>-->
 
       <!-- div to make table scrollable-->
       <div id="scroll">
@@ -69,6 +71,18 @@
     <a href="../index.html">Home</a> | <a href="../experiments/index.html">Experiments</a>
   </body>
 
+<!--jquery -->
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+     crossorigin="anonymous"></script>
+
+
+<!--jquery validate-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.js"></script>
+  
+  
   <!-- javascript for multiplication table -->
   <script type="text/javascript" src="multTable.js"></script>
+  
 </html>
