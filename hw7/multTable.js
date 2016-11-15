@@ -6,16 +6,106 @@ u
  May be freely copied or excerpted for educational purposes with credit to the \
 author.
 */
+jQuery.validator.addMethod("integer", function(value, element){
+	return isInteger(value)}, "Please enter an integer value");
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+
+$("#multDims").on('submit', function (e) {
+   //ajax call here
+   submit();
+   //stop form submission
+    e.preventDefault();
+    return false;
+});
+
+$( "#multDims" ).validate({
+  rules: {
+      xmin: {
+	  required: true,
+	      integer: true/*,
+	      min: function(element){
+		      return parseInt($("#xmax").val()) - 1000;
+	      },
+	      max: function(element){
+		      return parseInt($("#xmax").val());
+	      }*/
+      },
+      xmax: {
+	  required: true,
+	      integer: true,
+	      min: function(element){
+		      if(!isNaN(parseInt($("#xmin").val())) && isInteger($("#xmin").val())){
+			      return parseInt($("#xmin").val());
+		      }
+		      else{
+			     console.log("Minval = " + Number.MIN_VALUE);
+			      return Number.MIN_SAFE_INTEGER;
+		      }
+	      },
+	      max: function(element){
+		      if(!isNaN(parseInt($("#xmin").val()))){
+			      return parseInt($("#xmin").val()) + 1000;
+		      }
+		      else{
+			      return Number.MAX_SAFE_INTEGER + 1000;
+		      }
+		      //return parseInt($("#xmin").val()) + 1000;
+	      }
+      },
+      ymin: {
+	  required: true,
+	  integer: true
+      },
+      ymax: {
+	  required: true,
+	  integer: true,
+	     min: function(element){
+		      if(!isNaN(parseInt($("#ymin").val())) && isInteger($("#ymin").val())){
+			      return parseInt($("#ymin").val());
+		      }
+		      else{
+			     console.log("Minval = " + Number.MIN_VALUE);
+			      return Number.MIN_SAFE_INTEGER;
+		      }
+	      },
+	      max: function(element){
+		      if(!isNaN(parseInt($("#ymin").val()))){
+			      return parseInt($("#ymin").val()) + 1000;
+		      }
+		      else{
+			      return Number.MAX_SAFE_INTEGER + 1000;
+		      }
+		      //return parseInt($("#xmin").val()) + 1000;
+	      }
+      }
+  }//,
+  //submitHandler: function(form) {
+    // do other things for a valid form
+  //  submit();
+  //}  
+});
+
+
+function isInteger(n) {
+    return /^[-]?[0-9]+$/.test(n+'');
+}
+
 
 
 /*function to process input values and dynamically add to the empty table*/
 function submit(){
-
-    /*check to make sure there is actually a number in each input*/
-    if(document.getElementById("xmin").value.length == 0){
-	window.alert("Please enter a value for X-min");
+    console.log("submitted");
+    if(!$("#multDims").valid()){
 	return false;
     }
+    /*check to make sure there is actually a number in each input*/
+    //if(document.getElementById("xmin").value.length == 0){
+    //window.alert("Please enter a value for X-min");
+	//return false;
+    //}
     if(document.getElementById("xmax").value.length == 0){
 	window.alert("Please enter a value for X-max");
 	return false;
