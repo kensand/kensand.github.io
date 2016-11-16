@@ -5,9 +5,8 @@ u
  Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
  May be freely copied or excerpted for educational purposes with credit to the \
 author.
+*//*
 */
-jQuery.validator.addMethod("integer", function(value, element){
-	return isInteger(value)}, "Please enter an integer value");
 jQuery.validator.setDefaults({
   debug: true,
   success: "valid"
@@ -25,7 +24,7 @@ $( "#multDims" ).validate({
   rules: {
       xmin: {
 	  required: true,
-	      integer: true/*,
+	      number: true/*,
 	      min: function(element){
 		      return parseInt($("#xmax").val()) - 1000;
 	      },
@@ -35,13 +34,13 @@ $( "#multDims" ).validate({
       },
       xmax: {
 	  required: true,
-	      integer: true,
+	      number: true,
 	      min: function(element){
-		      if(!isNaN(parseInt($("#xmin").val())) && isInteger($("#xmin").val())){
+		      if(!isNaN(parseInt($("#xmin").val()))){
 			      return parseInt($("#xmin").val());
 		      }
 		      else{
-			     console.log("Minval = " + Number.MIN_VALUE);
+			     //console.log("Minval = " + Number.MIN_VALUE);
 			      return Number.MIN_SAFE_INTEGER;
 		      }
 	      },
@@ -50,20 +49,20 @@ $( "#multDims" ).validate({
 			      return parseInt($("#xmin").val()) + 1000;
 		      }
 		      else{
-			      return Number.MAX_SAFE_INTEGER + 1000;
+			      return Number.MAX_SAFE_INTEGER;
 		      }
 		      //return parseInt($("#xmin").val()) + 1000;
 	      }
       },
       ymin: {
 	  required: true,
-	  integer: true
+	  number: true
       },
       ymax: {
 	  required: true,
-	  integer: true,
+	  number: true,
 	     min: function(element){
-		      if(!isNaN(parseInt($("#ymin").val())) && isInteger($("#ymin").val())){
+		      if(!isNaN(parseInt($("#ymin").val()))){
 			      return parseInt($("#ymin").val());
 		      }
 		      else{
@@ -76,7 +75,7 @@ $( "#multDims" ).validate({
 			      return parseInt($("#ymin").val()) + 1000;
 		      }
 		      else{
-			      return Number.MAX_SAFE_INTEGER + 1000;
+			      return Number.MAX_SAFE_INTEGER;
 		      }
 		      //return parseInt($("#xmin").val()) + 1000;
 	      }

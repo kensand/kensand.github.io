@@ -8,21 +8,11 @@ author.
 */
 
 /*import parent css*/
-@import url("../css/style.css");
+@import url("../style.css");
 
 input{
     margin:5px;
     width: 100px;
-    //float:left;
-    display:block;
-    margin:auto;
-}
-.dimLabel{
-    //float:left;
-    display:inline-block;
-    //margin-right:10px;
-    width:45px;
-    margin:auto;
 }
 
 /*styling for multable and its data */
@@ -32,13 +22,7 @@ input{
     border-collapse: collapse;
     padding:3px;
 }
-#form input:after{
-    content:"\a";
-    white-space:pre;
-}
-label.error{
-    display:block;
-}
+
 
 #multTable{
     display:none;
