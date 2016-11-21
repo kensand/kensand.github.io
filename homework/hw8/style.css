@@ -1,0 +1,89 @@
+/*
+ File: kensand.github.io/homework/hw7/style.css
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
+u
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
+ May be freely copied or excerpted for educational purposes with credit to the \
+author.
+*/
+
+/*import parent css*/
+@import url("../style.css");
+
+input{
+    margin:5px;
+    width: 100px;
+    //float:left;
+    display:block;
+    margin:auto;
+}
+.slider{
+    width:66%;
+    margin:auto;
+    margin-top:5px;
+    display:inline-block;
+}
+.dimLabel{
+    //float:left;
+    display:inline-block;
+    //margin-right:10px;
+    width:45px;
+    margin:auto;
+}
+.col{
+    width:300px;
+    max-width:300px;
+    display:inline-block;
+    height:170px;
+}
+/*styling for multable and its data */
+#multTable tr td, #multTable th, #multTable{
+    border:1px solid;
+    border-color:white;
+    border-collapse: collapse;
+    padding:3px;
+}
+#form input:after{
+    content:"\a";
+    white-space:pre;
+    color:red;
+}
+label.error{
+    display:inline-block;
+    color:red;
+    //word-wrap:break-word;
+}
+
+#multTable{
+    display:none;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top:10px;
+   
+}
+
+/*center all elements in container */
+#container{
+   
+    text-align:center;
+}
+
+/*center elements of form div */
+#form{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*allow scrolling and set max dims of scroll */
+#scroll{
+    overflow:auto;
+    max-width:590px;
+    max-height:590px;
+    margin:10px;
+}
+
+/*make headings for table look different from data*/
+.theader{
+    font-weight:800;
+    background-color:#0000CC;
+}

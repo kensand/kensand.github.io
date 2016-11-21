@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+ File: kensand.github.io/homework/hw7/homework7.html
+ 91.461 Assignment 7
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.edu
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved. 
+ May be freely copied or excerpted for educational purposes with credit to the author.
+
+  -->
+<html>
+  <!-- header -->
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Javascript Multiplication Table
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+  </head>
+
+  <!--Body -->
+  <body>
+
+    <!-- Title -->
+    <h2>
+      Javascript Multiplication Table
+    </h2>
+    <hr/>
+
+    <!-- container for form and table -->
+    <div id="usage">
+      <h3>Usage</h3>
+      <p>
+	X are the horizontal values, Y are the vertical values. <br/>
+	Fill in the form below with minimum and maximum values for X and Y. <br/>
+	Press "Create Table" to generate the multiplication table. 
+      </p>
+    </div>
+    <hr/>
+    <div id="container">
+      <div id="form">
+	<form id="multDims">
+	  <div class="col">
+	     
+	    <label class="dimLabel" for="xmin">X-min</label>
+
+	      <input id="xmin" name="xmin" type="number" value="1"/>
+	      <div id="xMinSlider" class="slider" ><br/>
+	      
+	   
+	    </div>
+	    <br/>	  
+	    <label class="dimLabel" for="xmax">X-max</label>
+	    <input name="xmax" id="xmax" type="number" value="5"/>
+	    <div id="xMaxSlider" class="slider">
+	    </div>
+	  </div>
+	  
+	  <div class="col">
+	    <label class="dimLabel" for="ymin">Y-min</label>
+	    <input name="ymin" id="ymin" type="number" value="1"/>
+	    <div id="yMinSlider" class="slider">
+	    </div>
+	    <br/>
+	    <label class="dimLabel" for="ymax">Y-max</label>
+	    <input name="ymax" id="ymax" type="number" value="5"/>
+	    <div id="yMaxSlider" class="slider">
+	    </div>
+	  </div>
+	  <input type="submit" value="Create Table" >
+	</form>
+      </div>
+      <br/>
+      <!-- create table button-->
+      <!--<button onclick="submit();">Create Table</button>-->
+
+      <!-- div to make table scrollable-->
+      <div id="scroll">
+	<!-- empty table -->
+	<table id="multTable" align="center">
+	</table>
+      </div>
+
+
+    </div>
+
+    <!-- footer -->
+    <hr/>
+    <a href="../../index.html">Home</a> | <a href="../../experiments/index.html">Experiments</a>
+  </body>
+
+<!--jquery -->
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+     crossorigin="anonymous"></script>
+
+
+<!--jquery validate-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.js"></script>
+  
+  
+  <!--<script src="jquery-ui/external/jquery/jquery.js"></script>-->
+  <script src="jquery-ui/jquery-ui.min.js"></script>
+  
+  <!-- javascript for multiplication table -->
+  <script type="text/javascript" src="multTable.js"></script>
+  
+</html>
