@@ -33,15 +33,26 @@ input{
 .col{
     width:300px;
     max-width:300px;
-    display:inline-block;
-    height:170px;
+    display:block;
+    min-height:170px;
+}
+.left{
+    float:left;
+}
+.right{
+    float:right;
+}
+button{
+    margin:10px;
 }
 /*styling for multable and its data */
-#multTable tr td, #multTable th, #multTable{
+.multTable tr td, .multTable th, .multTable{
     border:1px solid;
     border-color:white;
     border-collapse: collapse;
     padding:3px;
+    color:white;
+    
 }
 #form input:after{
     content:"\a";
@@ -55,13 +66,15 @@ label.error{
 }
 
 #multTable{
-    display:none;
+   display:none;
    margin-left: auto;
    margin-right: auto;
    margin-top:10px;
    
 }
-
+#form{
+    max-width:600px;
+}
 /*center all elements in container */
 #container{
    
@@ -73,17 +86,33 @@ label.error{
     margin-left: auto;
     margin-right: auto;
 }
+#tabs{
+    background-color:black;
+    border:none;
+    color:white;
+}
+#tabList{
+    background-color:black;
+    border:none;
+    margin-bottom:5px;
+}
 
 /*allow scrolling and set max dims of scroll */
-#scroll{
+.scroll{
     overflow:auto;
     max-width:590px;
     max-height:590px;
-    margin:10px;
+    margin:0px;
+    padding:0px;
 }
 
 /*make headings for table look different from data*/
 .theader{
     font-weight:800;
     background-color:#0000CC;
+}
+
+
+.ui-icon-circle-close {
+    cursor:pointer;
 }

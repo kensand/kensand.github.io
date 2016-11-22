@@ -7,51 +7,157 @@ u
 author.
 *//*
    */
+var tableNum = 1;
 (function($){
+	
+	$("#saveTable").click(function(){
+		//save table
+		
+		if (!($('#multTable').is(':empty'))){
+			var $tab = $("<div>").append($("#multTable").clone().prop("id", "innerTable" + tableNum));
+			$tab.addClass("scroll");
+			$tab.prop("id", "table" + tableNum);
+			$tab.css("padding", "0px");
+			$("#tabs").append($tab);
+			
+			var $link = $("<li>");
+			var $a = $("<a>");
+			$a.attr("href", "#table" + tableNum);
+			$a.append("Table " + tableNum);
+			var $close = $("<span>");
+			$close.addClass("ui-icon ui-icon-circle-close ui-closable-tab");
+			$a.append($close);
+			$link.append($a);
+			$("#tabList").append($link);
+			
+			
+			$("#tabs").tabs("refresh");
+			tableNum++;
+		}
+		
+			
+	});
+
+	$("body").on( "click", ".ui-closable-tab", function() {
+		var tabContainerDiv=$(this).closest(".ui-tabs").attr("id");
+		var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+		$( "#" + panelId ).remove();
+		$("#"+tabContainerDiv).tabs("refresh");
+		
+		var tabCount=$("#"+tabContainerDiv).find(".ui-closable-tab").length;
+		if (tabCount<1) {
+			tableNum = 1;
+		}
+	});
+	
+	$("#clearTable").click(function(){
+		$("#multTable").empty();
+		
+	});
+	$("#deleteTables").click(function(){
+		$("#tabs").children().not("#tabList").remove();
+		$("#tabList").empty();
+		tableNum = 1;
+	});
+
+	$("#tabs").tabs();
 
 
 	$("#xMinSlider").slider({
 		start: function(){ $("#xmin").val($("#xMinSlider").slider("option", "value"));
 				   $("#xMaxSlider").slider("option", "min", parseInt($("#xMinSlider").slider("option", "value")));
-				    $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
+				   $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
+				   if($("#xMaxSlider").slider("option", "value") < parseInt($("#xMinSlider").slider("option", "value"))){
+					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value")));
+				   }
+				   else if(parseInt($("#xMinSlider").slider("option", "value")) + 1000 < $("#xMaxSlider").slider("option", "value")){
+					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value"))+ 1000);
+				   }
 				   },
 		slide: function(){ $("#xmin").val($("#xMinSlider").slider("option", "value"));
 				   $("#xMaxSlider").slider("option", "min", parseInt($("#xMinSlider").slider("option", "value")));
-				    $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
+				   $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
+				   if($("#xMaxSlider").slider("option", "value") < parseInt($("#xMinSlider").slider("option", "value"))){
+					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value")));
+				   }
+				   else if(parseInt($("#xMinSlider").slider("option", "value")) + 1000 < $("#xMaxSlider").slider("option", "value")){
+					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value"))+ 1000);
+				   }
 				   }, 
 		change: function(){ $("#xmin").val($("#xMinSlider").slider("option", "value"));
 				    $("#xMaxSlider").slider("option", "min", parseInt($("#xMinSlider").slider("option", "value")));
 				    $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
-				  }});
+				    if($("#xMaxSlider").slider("option", "value") < parseInt($("#xMinSlider").slider("option", "value"))){
+					    $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value")));
+				    }
+				    else if(parseInt($("#xMinSlider").slider("option", "value")) + 1000 < $("#xMaxSlider").slider("option", "value")){
+					    $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value"))+ 1000);
+				    }
+				  }
+	});
 	$("#xMinSlider").slider("option", "min", -1000);
 	$("#xMinSlider").slider("option", "max", 1000);
+
+
+	
 	$("#yMinSlider").slider({
 		start: function(){ $("#ymin").val($("#yMinSlider").slider("option", "value"));
 				   $("#yMaxSlider").slider("option", "min", parseInt($("#yMinSlider").slider("option", "value")));
-				    $("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 1000);
-				   },
+				   $("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 1000);
+				   if($("#yMaxSlider").slider("option", "value") < parseInt($("#yMinSlider").slider("option", "value"))){
+					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value")));
+				   }
+				   else if(parseInt($("#yMinSlider").slider("option", "value")) + 1000 < $("#yMaxSlider").slider("option", "value")){
+					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value"))+ 1000);
+				   }
+				 },
 		slide: function(){ $("#ymin").val($("#yMinSlider").slider("option", "value"));
-				   }, 
+				   $("#yMaxSlider").slider("option", "min", parseInt($("#yMinSlider").slider("option", "value")));
+				   $("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 1000);
+				   if($("#yMaxSlider").slider("option", "value") < parseInt($("#yMinSlider").slider("option", "value"))){
+					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value")));
+				   }
+				   else if(parseInt($("#yMinSlider").slider("option", "value")) + 1000 < $("#yMaxSlider").slider("option", "value")){
+					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value"))+ 1000);
+				   }
+				 }, 
 		change: function(){ $("#ymin").val($("#yMinSlider").slider("option", "value"));
-				  }});
-		$("#yMinSlider").slider("option", "min", -1000);
+				    $("#yMaxSlider").slider("option", "min", parseInt($("#yMinSlider").slider("option", "value")));
+				    $("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 1000);
+				    if($("#yMaxSlider").slider("option", "value") < parseInt($("#yMinSlider").slider("option", "value"))){
+					    $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value")));
+				    }
+				    else if(parseInt($("#yMinSlider").slider("option", "value")) + 1000 < $("#yMaxSlider").slider("option", "value")){
+					    $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value"))+ 1000);
+				    }
+				  }
+	});
+	$("#yMinSlider").slider("option", "min", -1000);
 	$("#yMinSlider").slider("option", "max", 1000);
+
+
+
 	
- $("#xMaxSlider").slider({
-	 start: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
-				   },
-	 slide: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
-			  }, 
-	 change: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
-			   }}); 
+	$("#xMaxSlider").slider({
+		start: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
+				 },
+		slide: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
+				 }, 
+		change: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
+				  }});
+	$("#xMaxSlider").slider("option", "min", 1);
+	$("#xMaxSlider").slider("option", "max", 1001);
+	
 	$("#yMaxSlider").slider({
 		start: function(){ $("#ymax").val($("#yMaxSlider").slider("option", "value"));
-				   },
+				 },
 		slide: function(){ $("#ymax").val($("#yMaxSlider").slider("option", "value"));
-				   }, 
+				 }, 
 		change: function(){ $("#ymax").val($("#yMaxSlider").slider("option", "value"));
-				  }}); 
-//set validator defaults
+				  }});
+	$("#yMaxSlider").slider("option", "min", 1);
+	$("#yMaxSlider").slider("option", "max", 1001);
+	//set validator defaults
 	jQuery.validator.setDefaults({
 		debug: true,
 		success: "valid"
