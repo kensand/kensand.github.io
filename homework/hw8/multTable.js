@@ -1,25 +1,29 @@
 /*
- File: kensand.github.io/homework/hw7/multTable.js
- Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.ed\
-u
+ File: kensand.github.io/homework/hw8/multTable.js
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.edu
  Copyright (c) 2016 by Kenneth Sanders. All rights reserved.
- May be freely copied or excerpted for educational purposes with credit to the \
-author.
+ May be freely copied or excerpted for educational purposes with credit to the 
+ author.
 *//*
    */
 var tableNum = 1;
 (function($){
-	
+	//set onclick for the save table button.
 	$("#saveTable").click(function(){
-		//save table
+		
 		
 		if (!($('#multTable').is(':empty'))){
+
+			//clone the table and change id and put it in a div.
 			var $tab = $("<div>").append($("#multTable").clone().prop("id", "innerTable" + tableNum));
+			//make the div scrollable and set it's Id
 			$tab.addClass("scroll");
 			$tab.prop("id", "table" + tableNum);
 			$tab.css("padding", "0px");
+			//append div to tabs container
 			$("#tabs").append($tab);
-			
+
+			//create a li for the table with a href inside and a span for the close button
 			var $link = $("<li>");
 			var $a = $("<a>");
 			$a.attr("href", "#table" + tableNum);
@@ -30,142 +34,150 @@ var tableNum = 1;
 			$link.append($a);
 			$("#tabList").append($link);
 			
+			//refresh tabs and increase tabNumber
 			
 			$("#tabs").tabs("refresh");
+			//if its the first table, go ahead and make that tab active
+			if(tableNum == 1){
+				$("#tabs").tabs({active: 0});
+			}
 			tableNum++;
 		}
 		
 			
 	});
 
+	//set the onclick for all close buttons now and in the future.
 	$("body").on( "click", ".ui-closable-tab", function() {
-		var tabContainerDiv=$(this).closest(".ui-tabs").attr("id");
-		var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
-		$( "#" + panelId ).remove();
-		$("#"+tabContainerDiv).tabs("refresh");
-		
-		var tabCount=$("#"+tabContainerDiv).find(".ui-closable-tab").length;
-		if (tabCount<1) {
+		//get the tab div id
+		var tabId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+		//remove that div
+		$( "#" + tabId ).remove();
+		//refresh tabs
+		$("#tabs").tabs("refresh");
+		//check if there are any tabs left, if not, reset the tableNumber to 1 for convenience
+		if ($("#tabs").find(".ui-closable-tab").length<1) {
 			tableNum = 1;
 		}
 	});
-	
+
+	//set onclick function for the clear table button
 	$("#clearTable").click(function(){
 		$("#multTable").empty();
 		
 	});
+
+	//set the onclick function for the delete all tables button
 	$("#deleteTables").click(function(){
+		//remove all tab divs
 		$("#tabs").children().not("#tabList").remove();
+		//empty the tab list
 		$("#tabList").empty();
+		//reset the tableNum
 		tableNum = 1;
+		//refresh the tabs
+		$("#tabs").tabs("refresh");
 	});
-
+	//initialize tabs in the correct div
 	$("#tabs").tabs();
-
-
+	//function for what should happen anytime the slider value changes.
+	var xMinSliderFunc = function(){
+		//set the input value to what the slider has
+		$("#xmin").val($("#xMinSlider").slider("option", "value"));
+		//set the min and max for the corresponding max slider
+		$("#xMaxSlider").slider("option", "min", parseInt($("#xMinSlider").slider("option", "value")));
+		$("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 100);
+		//check if the slider value is out of the new min and max range, and make it so that it is within it.
+		if($("#xMaxSlider").slider("option", "value") < parseInt($("#xMinSlider").slider("option", "value"))){
+			$("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value")));
+		}
+		else if(parseInt($("#xMinSlider").slider("option", "value")) + 100 < $("#xMaxSlider").slider("option", "value")){
+			$("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value"))+ 100);
+		}
+		//call the submit function
+		submit();
+	};
+	//intialize xmin slider with appropriate onchange/start/slide functions
 	$("#xMinSlider").slider({
-		start: function(){ $("#xmin").val($("#xMinSlider").slider("option", "value"));
-				   $("#xMaxSlider").slider("option", "min", parseInt($("#xMinSlider").slider("option", "value")));
-				   $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
-				   if($("#xMaxSlider").slider("option", "value") < parseInt($("#xMinSlider").slider("option", "value"))){
-					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value")));
-				   }
-				   else if(parseInt($("#xMinSlider").slider("option", "value")) + 1000 < $("#xMaxSlider").slider("option", "value")){
-					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value"))+ 1000);
-				   }
-				   },
-		slide: function(){ $("#xmin").val($("#xMinSlider").slider("option", "value"));
-				   $("#xMaxSlider").slider("option", "min", parseInt($("#xMinSlider").slider("option", "value")));
-				   $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
-				   if($("#xMaxSlider").slider("option", "value") < parseInt($("#xMinSlider").slider("option", "value"))){
-					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value")));
-				   }
-				   else if(parseInt($("#xMinSlider").slider("option", "value")) + 1000 < $("#xMaxSlider").slider("option", "value")){
-					   $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value"))+ 1000);
-				   }
-				   }, 
-		change: function(){ $("#xmin").val($("#xMinSlider").slider("option", "value"));
-				    $("#xMaxSlider").slider("option", "min", parseInt($("#xMinSlider").slider("option", "value")));
-				    $("#xMaxSlider").slider("option", "max", parseInt($("#xMinSlider").slider("option", "value")) + 1000);
-				    if($("#xMaxSlider").slider("option", "value") < parseInt($("#xMinSlider").slider("option", "value"))){
-					    $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value")));
-				    }
-				    else if(parseInt($("#xMinSlider").slider("option", "value")) + 1000 < $("#xMaxSlider").slider("option", "value")){
-					    $("#xMaxSlider").slider("option", "value",  parseInt($("#xMinSlider").slider("option", "value"))+ 1000);
-				    }
-				  }
+		start: xMinSliderFunc,
+		slide: xMinSliderFunc, 
+		change: xMinSliderFunc
 	});
-	$("#xMinSlider").slider("option", "min", -1000);
-	$("#xMinSlider").slider("option", "max", 1000);
+	//set xmin slider min and max
+	$("#xMinSlider").slider("option", "min", -100);
+	$("#xMinSlider").slider("option", "max", 100);
 
+	//function for what should happen anytime the slider value changes.
+	var yMinSliderFunc = function(){
+		//set the input value to what the slider has
+		$("#ymin").val($("#yMinSlider").slider("option", "value"));
 
-	
+		//set the min and max for the corresponding max slider
+		$("#yMaxSlider").slider("option", "min", parseInt($("#yMinSlider").slider("option", "value")));
+		$("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 100);
+		//check if the slider value is out of the new min and max range, and make it so that it is within it.
+		if($("#yMaxSlider").slider("option", "value") < parseInt($("#yMinSlider").slider("option", "value"))){
+			$("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value")));
+		}
+		else if(parseInt($("#yMinSlider").slider("option", "value")) + 100 < $("#yMaxSlider").slider("option", "value")){
+			$("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value"))+ 100);
+		}
+		//call the submit function
+		submit();
+	};
+	//intialize ymin slider with appropriate onchange/start/slide functions
 	$("#yMinSlider").slider({
-		start: function(){ $("#ymin").val($("#yMinSlider").slider("option", "value"));
-				   $("#yMaxSlider").slider("option", "min", parseInt($("#yMinSlider").slider("option", "value")));
-				   $("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 1000);
-				   if($("#yMaxSlider").slider("option", "value") < parseInt($("#yMinSlider").slider("option", "value"))){
-					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value")));
-				   }
-				   else if(parseInt($("#yMinSlider").slider("option", "value")) + 1000 < $("#yMaxSlider").slider("option", "value")){
-					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value"))+ 1000);
-				   }
-				 },
-		slide: function(){ $("#ymin").val($("#yMinSlider").slider("option", "value"));
-				   $("#yMaxSlider").slider("option", "min", parseInt($("#yMinSlider").slider("option", "value")));
-				   $("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 1000);
-				   if($("#yMaxSlider").slider("option", "value") < parseInt($("#yMinSlider").slider("option", "value"))){
-					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value")));
-				   }
-				   else if(parseInt($("#yMinSlider").slider("option", "value")) + 1000 < $("#yMaxSlider").slider("option", "value")){
-					   $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value"))+ 1000);
-				   }
-				 }, 
-		change: function(){ $("#ymin").val($("#yMinSlider").slider("option", "value"));
-				    $("#yMaxSlider").slider("option", "min", parseInt($("#yMinSlider").slider("option", "value")));
-				    $("#yMaxSlider").slider("option", "max", parseInt($("#yMinSlider").slider("option", "value")) + 1000);
-				    if($("#yMaxSlider").slider("option", "value") < parseInt($("#yMinSlider").slider("option", "value"))){
-					    $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value")));
-				    }
-				    else if(parseInt($("#yMinSlider").slider("option", "value")) + 1000 < $("#yMaxSlider").slider("option", "value")){
-					    $("#yMaxSlider").slider("option", "value",  parseInt($("#yMinSlider").slider("option", "value"))+ 1000);
-				    }
-				  }
+		start: yMinSliderFunc,
+		slide: yMinSliderFunc, 
+		change:yMinSliderFunc
 	});
-	$("#yMinSlider").slider("option", "min", -1000);
-	$("#yMinSlider").slider("option", "max", 1000);
+	//set ymin slider min and max vals
+	$("#yMinSlider").slider("option", "min", -100);
+	$("#yMinSlider").slider("option", "max", 100);
 
 
 
-	
+	//intialize xmax slider with appropriate onchange/start/slide functions
 	$("#xMaxSlider").slider({
 		start: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
+				   submit();
 				 },
 		slide: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
+				   submit();
 				 }, 
 		change: function(){ $("#xmax").val($("#xMaxSlider").slider("option", "value"));
+				   submit();
 				  }});
+	//set xmax slider min and max
 	$("#xMaxSlider").slider("option", "min", 1);
-	$("#xMaxSlider").slider("option", "max", 1001);
-	
+	$("#xMaxSlider").slider("option", "max", 101);
+
+	//intialize ymax slider with appropriate onchange/start/slide functions
 	$("#yMaxSlider").slider({
 		start: function(){ $("#ymax").val($("#yMaxSlider").slider("option", "value"));
+				   submit();
 				 },
 		slide: function(){ $("#ymax").val($("#yMaxSlider").slider("option", "value"));
+				   submit();
 				 }, 
 		change: function(){ $("#ymax").val($("#yMaxSlider").slider("option", "value"));
+				   submit();
 				  }});
+	//set ymax slider min and max
 	$("#yMaxSlider").slider("option", "min", 1);
-	$("#yMaxSlider").slider("option", "max", 1001);
+	$("#yMaxSlider").slider("option", "max", 101);
+	
 	//set validator defaults
 	jQuery.validator.setDefaults({
 		debug: true,
 		success: "valid"
 	});
-	$("#xmin").bind('input', function () { $("#xMinSlider").slider("option", "value", $("#xmin").val())});
-	$("#ymin").bind('input', function () { $("#yMinSlider").slider("option", "value", $("#ymin").val())});
-	$("#xmax").bind('input', function () { $("#xMaxSlider").slider("option", "value", $("#xmax").val())});
-	$("#ymax").bind('input', function () { $("#yMaxSlider").slider("option", "value", $("#ymax").val())});
+
+	//bind on input functions for the form input to change the slider value whenever the form value changes
+	$("#xmin").bind('input', function () {if(!isNaN(parseInt($("#xmin").val()))){ $("#xMinSlider").slider("option", "value", $("#xmin").val()); submit();}});
+	$("#ymin").bind('input', function () {if(!isNaN(parseInt($("#ymin").val()))){ $("#yMinSlider").slider("option", "value", $("#ymin").val()); submit();}});
+	$("#xmax").bind('input', function () {if(!isNaN(parseInt($("#xmax").val()))){ $("#xMaxSlider").slider("option", "value", $("#xmax").val()); submit();}});
+	$("#ymax").bind('input', function () {if(!isNaN(parseInt($("#ymax").val()))){$("#yMaxSlider").slider("option", "value", $("#ymax").val()); submit();}});
 	
 	
 	
@@ -218,14 +230,14 @@ var tableNum = 1;
 				max: function(element){
 					//check if xmin is a number
 					if(!isNaN(parseInt($("#xmin").val()))){
-						//if so, return xmin + 1000
-						return parseInt($("#xmin").val()) + 1000;
+						//if so, return xmin + 100
+						return parseInt($("#xmin").val()) + 100;
 					}
 					//otherwise return the maximum safe integer
 					else{
 						return Number.MAX_SAFE_INTEGER;
 					}
-					//return parseInt($("#xmin").val()) + 1000;
+					//return parseInt($("#xmin").val()) + 100;
 				}
 			},
 			ymin: {
@@ -253,18 +265,19 @@ var tableNum = 1;
 				max: function(element){
 					//check if ymin is a number
 					if(!isNaN(parseInt($("#ymin").val()))){
-						//if so, return ymin + 1000
-						return parseInt($("#ymin").val()) + 1000;
+						//if so, return ymin + 100
+						return parseInt($("#ymin").val()) + 100;
 					}
 					else{
 						//otherwise return the maximum safe integer
 						return Number.MAX_SAFE_INTEGER;
 					}
-					//return parseInt($("#xmin").val()) + 1000;
+					//return parseInt($("#xmin").val()) + 100;
 				}
 			}
 		}
 	});
+	submit();
 })(jQuery);
 
 
@@ -316,13 +329,13 @@ function submit(){
 	return false;
     }
 
-    //dont allow more than 1000 rows or column to prevent freezing on most devices
-    if(xmax - xmin > 1000){
-	window.alert("Table is too large, please enter X-min and X-max with a difference of no more than 1000");
+    //dont allow more than 100 rows or column to prevent freezing on most devices
+    if(xmax - xmin > 100){
+	window.alert("Table is too large, please enter X-min and X-max with a difference of no more than 100");
 	return false;
     }
-    if(ymax - ymin > 1000){
-	window.alert("Table is too large, please enter X-min and X-max with a difference of no more than 1000");
+    if(ymax - ymin > 100){
+	window.alert("Table is too large, please enter X-min and X-max with a difference of no more than 100");
 	return false;
     }    
 
