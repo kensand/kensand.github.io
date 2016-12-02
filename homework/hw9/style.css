@@ -9,14 +9,69 @@ author.
 /*import parent css*/
 @import url("../style.css");
 
+#rack{
+    margin:20px auto 20px auto;
+    
+    width:294px;
+    height:42px;
+    background-color:#f5deb3;
+}
 
+#rack div{
+    display:inline-block;
+    width:42px;
+    height:42px;
+}
+#buttons button{
+    margin:5px;
+}
 
+#container tr td img{
+    position:absolute;
+    display:block;
+    //border:0px;
+    
+}
+
+#container tr td span{
+    position:relative;
+    display:block;
+}
+
+#container tr td, #rack div img {
+    position:relative;
+    height:40px;
+    width:40px;
+    max-height:40px;
+    max-width:40px;
+    min-height:40px;
+    min-width:40px;
+    padding:0px;
+    margin:0px;
+    vertical-align: bottom;
+}
+
+.tile{
+    position:absolute;
+    height:40px;
+    width:40px;
+    max-height:40px;
+    max-width:40px;
+    min-height:40px;
+    min-width:40px;
+    border:1px solid white;
+}
 .square{
     height:40px;
     width:40px;
+    max-height:40px;
+    max-width:40px;
+    min-height:40px;
+    min-width:40px;
     background-color: #f5deb3;
     border:1px solid white;
     color:black;
+    //display:inline-block;
 }
 
 .tripWord{
