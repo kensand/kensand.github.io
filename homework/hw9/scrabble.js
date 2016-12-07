@@ -5,7 +5,12 @@
  Copyright (c) 2016 by Kenneth Sanders. All rights reserved. 
  May be freely copied or excerpted for educational purposes with credit to the author.
 
-  */
+*/
+
+//scrabble tile images credit: https://teaching.cs.uml.edu/~heines/91.461/91.461-2015-16f/461-assn/Scrabble_Tiles.html
+
+
+
 //constant values needed for scrabble game
 const w = "Word";
 const l = "Letter";
@@ -40,18 +45,29 @@ var rack = null;
 //when the document is ready, setup the buttons, create the board, and fill the rack
 $(function(){
 	totalScore = 0;
-	$("#buttons").append($("<button>").attr("id", "moveButton").append("Submit Move")).append($("<button>").attr("id", "resetRack").append("Reset Move"));
+	$("#buttons").append($("<button>").attr("id", "moveButton").append("Submit Move")).append($("<button>").attr("id", "resetRack").append("Reset Move")).append($("<button>").attr("id", "resetGame").append("Reset Game"));
 	$("#moveButton").click(moveFunc);
 	
 	//console.log("b = ");
 	//console.log(b);
 	$("#resetRack").click(resetRack);
+	$("#resetGame").click(resetGame);
 	b = new Board("board");
 	rack = fillRack([]);
 	updateRack(rack, "rack");
 
 	
 });
+
+
+function resetGame(){
+	$("#board").empty();
+	$("#rack").empty();
+	clearMessage();
+	b = new Board("board");
+	rack = fillRack([]);
+	updateRack(rack, "rack");
+}
 
 //function to score a move given an array of [.square and tile object pairs]
 function scoreMove(move){
@@ -193,7 +209,7 @@ Board.prototype.applyMove = function(failureFunc){
 	console.log(this.move);
 	if(this.move.length <= 0){
 		console.log("got here");
-		failureFunc("You have to actually place a tile on the board.");
+		failureFunc("You have to actually place a new tile on the board.");
 		return false;
 	}
 	var squares = [];
@@ -213,7 +229,7 @@ Board.prototype.applyMove = function(failureFunc){
 		
 	}
 	if(!isInRow(squares) && !isInCol(squares)){
-		failureFunc("All placed tiles must be in either the same row or the same column");
+		failureFunc("All newly placed tiles must be in either the same row or the same column");
 		return false;
 	}
 
