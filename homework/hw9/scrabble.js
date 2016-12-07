@@ -38,12 +38,13 @@ const tileDist = [9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1];
 const tileVals = [1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10];
 
 //global vars for the board, rack, and game tile distribution
-var dist = tileDist.slice();
+var dist = null;
 var b = null;
 var rack = null;
 
 //when the document is ready, setup the buttons, create the board, and fill the rack
 $(function(){
+	dist = tileDist.slice();
 	totalScore = 0;
 	$("#buttons").append($("<button>").attr("id", "moveButton").append("Submit Move")).append($("<button>").attr("id", "resetRack").append("Reset Move")).append($("<button>").attr("id", "resetGame").append("Reset Game"));
 	$("#moveButton").click(moveFunc);
@@ -61,6 +62,7 @@ $(function(){
 
 
 function resetGame(){
+	dist = tileDist.slice();
 	$("#board").empty();
 	$("#rack").empty();
 	clearMessage();
@@ -107,7 +109,7 @@ function moveFunc(){
 			
 			rack.splice(rack.indexOf(move[i][1]), 1);
 		}
-		console.log(rack);
+		//console.log(rack);
 		rack = fillRack(rack);
 		updateRack(rack, "rack");
 		updateScore(scoreMove(move));
@@ -205,8 +207,8 @@ function Board(containerName){
 
 //function to apply the move stored in the board it is called from
 Board.prototype.applyMove = function(failureFunc){
-	console.log("this.move = ");
-	console.log(this.move);
+	//console.log("this.move = ");
+	//console.log(this.move);
 	if(this.move.length <= 0){
 		console.log("got here");
 		failureFunc("You have to actually place a new tile on the board.");
@@ -239,7 +241,7 @@ Board.prototype.applyMove = function(failureFunc){
 		var id = this.move[i][0].attr("id");
 		var x = parseInt(id.slice(0, id.indexOf(",")));
 		var y = parseInt(id.slice(id.indexOf(",") + 1, id.length));
-		console.log(this.move);
+		//console.log(this.move);
 		if(this.letters[x][y] == null){
 			this.letters[x][y] = this.move[i][1].img;
 			
@@ -287,13 +289,14 @@ Board.prototype.update = function(){
 
 //function to handdle the dropping of a draggable into a dropable
 function handleDrop(event, ui){
-	console.log("ui data = ");
-	console.log(ui.draggable);
-	console.log(ui.draggable.data("tile"));
+	//console.log("ui data = ");
+	//console.log(ui.draggable);
+	//console.log(ui.draggable.data("tile"));
 	$(this).data("board").move.push([$(this), ui.draggable.data("tile")]);
 	ui.draggable.draggable("option", "revert", false);
 	ui.draggable.position({ of: $(this), my: 'left top', at: 'left top' } );
 	ui.draggable.draggable("disable");
+	$(this).droppable("disable");
 	//console.log($(this).data("board").move);
 				     
 	
@@ -330,8 +333,8 @@ function resetRackPositions(){
 	b.move = [];
 	b.update();
 	for(var i = 0; i < rack.length; i++){
-		console.log("rack tile = ");
-		console.log(rack[i].img.data("tile"));
+		//console.log("rack tile = ");
+		//console.log(rack[i].img.data("tile"));
 		rack[i].img.animate({
 			top: "0px",
 			left: "0px"
@@ -385,19 +388,22 @@ function fillRack(r){
 		if(total <= 0){
 			return null;
 		}
-		console.log("total = " + total);
+		//console.log("total = " + total);
 		var rand = Math.floor(Math.random() * total);
-		console.log("rand = " + rand);
+		//console.log("rand = " + rand);
 		total = 0;
 		for(var i = 0; i < dist.length; i++){
+			total += dist[i];
 			if(rand < total){
 				dist[i]-=1;
-				console.log("i = " + i);
-				console.log("returning: " + String.fromCharCode(65 + i));
+				console.log("dist = ");
+				console.log(dist);
+				//console.log("i = " + i);
+				//console.log("returning: " + String.fromCharCode(65 + i));
 				return String.fromCharCode(65 + i);
 				
 			}
-			total += dist[i];
+			
 		}
 		return getTile();
 		console.error("shouldn't be getting here");
@@ -407,19 +413,19 @@ function fillRack(r){
 //		console.log("fillrack datas = ");
 	//	console.log(r[i].img.data("tile"));
 	//}
-	console.log("r = ");
-	console.log(r);
+	//console.log("r = ");
+	//console.log(r);
 	while(r.length < 7){
 		if(r.length > 0){
-			console.log(r[r.length - 1].c);
+			//console.log(r[r.length - 1].c);
 		}
 		var c = (getTile());
-		console.log("c = "  + c);
+		//console.log("c = "  + c);
 		if(c == null){
 			return r;
 		}
-		console.log("r = ");
-		console.log(r);
+		//console.log("r = ");
+		//console.log(r);
 		r.push(new Tile(c));
 		//console.log("data of new tile = ");
 		//console.log(r[r.length - 1].img.data("tile"));
