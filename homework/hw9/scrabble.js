@@ -1,4 +1,12 @@
-$(function(){
+/*
+ File: kensand.github.io/homework/hw/scrabble.js
+ 91.461 Assignment 9
+ Kenneth Sanders, UMass Lowell Computer Science, kenneth_sanders@student.uml.edu
+ Copyright (c) 2016 by Kenneth Sanders. All rights reserved. 
+ May be freely copied or excerpted for educational purposes with credit to the author.
+
+  */
+//constant values needed for scrabble game
 const w = "Word";
 const l = "Letter";
 const boardVals = [
@@ -21,166 +29,105 @@ const boardVals = [
 	[null, [2,w], null, null, null, [3,l] , null, null, null, [3,l], null, null, null, [2,w], null],
 	[[3, w], null, null, [2, l], null, null, null, [3, w], null, null, null, [2,l], null, null, [3,w]]];
 
-
-
 const tileDist = [9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1];
+const tileVals = [1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10];
 
-var b;
-var rack;
+//global vars for the board, rack, and game tile distribution
+var dist = tileDist.slice();
+var b = null;
+var rack = null;
 
+//when the document is ready, setup the buttons, create the board, and fill the rack
+$(function(){
+	totalScore = 0;
+	$("#buttons").append($("<button>").attr("id", "moveButton").append("Submit Move")).append($("<button>").attr("id", "resetRack").append("Reset Move"));
+	$("#moveButton").click(moveFunc);
 	
-
-	b = new Board("board");
-	var dist = tileDist.slice();
-	$("#buttons").append($("<button>").attr("id", "move").append("Submit Move")).append($("<button>").attr("id", "resetRack").append("Reset Move"));
-	$("#move").onclick = moveFunc;
-	
-	console.log("b = ");
-	console.log(b);
+	//console.log("b = ");
+	//console.log(b);
 	$("#resetRack").click(resetRack);
-
-
-
-	
-
-
-
-	
-	var getTile = function(){
-		
-		var total = 0;
-		for(var i = 0; i < dist.length; i++){
-			total += dist[i];
-		}
-		//console.log("total = " + total);
-		var rand = Math.floor(Math.random() * total);
-		//console.log("rand = " + rand);
-		total = 0;
-		for(var i = 0; i < dist.length; i++){
-			if(rand < total){
-				dist[i]-=1;
-				//console.log("i = " + i);
-				//console.log("returning: " + String.fromCharCode(65 + i));
-				return String.fromCharCode(65 + i);
-				
-			}
-			total += dist[i];
-		}
-		return null;
-	};
-
-	rack = [];
-	//rack.push(new Tile("C"));
-	//rack.push(new Tile("D"));
-	//$("#rack").append(rack[0].img);
-	//$("#rack").append(rack[1].img);
-	rack = fillRack(rack, getTile);
-	console.log(rack);
+	b = new Board("board");
+	rack = fillRack([]);
 	updateRack(rack, "rack");
-	
-			
 
 	
+});
 
-
-
-
-
-function moveFunc(){
-
-}
-
-
-
-function tileProm(Dist){
-	return function(){
-		
-		var total = 0;
-		for(var i = 0; i < Dist.length; i++){
-			total += Dist[i];
-		}
-		//console.log("total = " + total);
-		var rand = Math.floor(Math.random() * total);
-		//console.log("rand = " + rand);
-		total = 0;
-		for(var i = 0; i < Dist.length; i++){
-			if(rand < total){
-				Dist[i]-=1;
-				//console.log("i = " + i);
-				//console.log("returning: " + String.fromCharCode(65 + i));
-				return String.fromCharCode(65 + i);
-				
+//function to score a move given an array of [.square and tile object pairs]
+function scoreMove(move){
+	var total = 0;
+	var wordmult = 1;
+	for(var i = 0; i < move.length; i++){
+		var id = String(move[i][0].attr("id"));
+		//console.log( id);
+		var x = parseInt(id.slice(0, id.indexOf(",")));
+		var y = parseInt(id.slice(id.indexOf(",") + 1, id.length));
+		var val = boardVals[x][y];
+		var lMult = 1;
+		if(val != null){
+			if(val[1] == w){
+				wordmult *= val[0];
 			}
-			total += Dist[i];
+			if(val[1] == l){
+				lMult = val[0];
+			}
 		}
-		return null;
-	};
-}
-
-function resetRack(){
-	console.log(b);
-	b.setDroppable();
-	for(var i = 0; i < rack.length; i++){
-		console.log(rack[i]);
-		rack[i].img.animate({
-			top: "0px",
-			left: "0px"
-		});//removeAttr("style");
-		rack[i].img.draggable("enable");
+		var tileVal = tileVals[move[i][1].c.charCodeAt(0) - 65];
+		total += (tileVal * lMult);
 	}
-}
+	return total * wordmult;
+};
 
-function updateRack(rack, containerName){
-	var cont = $("#" + containerName);
-	cont.empty();
-	//console.log("rack.length = " + rack.length);
-	for(var i = 0; i < rack.length; i++){
-		//console.log(rack[i].img);
-		var tempDiv = $("<div>");
-		//tempDiv.droppable({drop:handleDrop});
-		tempDiv.append(rack[i].img);
-		cont.append(tempDiv);
+//function called when the submit move button is clicked
+function moveFunc(){
+	if(b == null){
+		return;
 	}
-	return;
-}
-function fillRack(r, tileFunc){
-	//console.log("r = ");
-	//console.log(r);
-	while(r.length < 7){
-		var c = (tileFunc());
-		//console.log("c = "  + c);
-		if(c == null){
-			return r;
+	var move = b.applyMove(badMove);
+	
+	b.update();
+	if( move != false){
+		for(var i = 0 ; i < move.length; i++){
+			
+			rack.splice(rack.indexOf(move[i][1]), 1);
 		}
-		//console.log("r = ");
-		//console.log(r);
-		r.push(new Tile(c));
+		console.log(rack);
+		rack = fillRack(rack);
+		updateRack(rack, "rack");
+		updateScore(scoreMove(move));
 	}
-	return r.slice();
+	else{
+		resetRackPositions();
+	}
+	
+	
+
+};
+//function to update the score elements
+var totalScore = 0;
+function updateScore(val){
+	$("#lastMoveScore").empty();
+	$("#lastMoveScore").append($("<p>").append("Score From Last Move: " + val));
+	totalScore += val;
+	$("#totalScore").empty();
+	$("#totalScore").append($("<p>").append("Total Score: " + totalScore));
 }
 
-function Tile(c){
-	this.c = c;
-	this.img = $("<img>");
-	this.img.attr("src", "tiles/Scrabble_Tile_" + c + ".jpg");
-	this.img.draggable({
-		containment:"#container",
-		start: movedTile,
-		//stop: returnTile,
-		revert:true
-	});
-	this.img.addClass("tile");
-	this.location = null;
-	return this;
-}
+//function to output an error to the message div when there is an error in a move
+function badMove(error){
+	clearMessage();
+	$("#message").append($("<p>").append(error));
+	resetRackPositions();
+};
 
+//function to clear the message div
+function clearMessage(){
+	$("#message").empty();
+};
 
-function Hand(containerName){
-	this.cont = $("#" + containerName);
-	this.tiles = [];
-
-}
+//Board class constructor
 function Board(containerName){
+	this.move = [];
 	this.cont = $("#" + containerName);
 	this.letters = [];
 	this.firstMove = true;
@@ -194,9 +141,10 @@ function Board(containerName){
 			tempd.attr("id", i + "," + j);
 			tempd.addClass("square");
 			tempd.droppable({
-				drop:handleDrop,
-				out: pickedUp
+				drop:handleDrop
+				//, out: pickedUp
 			});
+			tempd.data("board", this);
 			if(boardVals[i][j] == null){
 				tempd.addClass("empty");
 			}
@@ -236,90 +184,280 @@ function Board(containerName){
 		}
 		this.cont.append(tempe);
 		this.letters.push(templ);
-	}
-}
-Board.prototype.placeTile = function (tile, pos){
-	if(this.letters[pos[0]][pos[1]] != null){
+	  }
+};
+
+//function to apply the move stored in the board it is called from
+Board.prototype.applyMove = function(failureFunc){
+	console.log("this.move = ");
+	console.log(this.move);
+	if(this.move.length <= 0){
+		console.log("got here");
+		failureFunc("You have to actually place a tile on the board.");
 		return false;
 	}
-	else{
-		this.letters[pos[0]][pos[1]] = tile;
-		$(tile).draggable.draggable('disable');
+	var squares = [];
+
+	for(var i = 0; i < this.move.length; i++){
+		var id = this.move[i][0].attr("id");
+		var x = parseInt(id.slice(0, id.indexOf(",")));
+		var y = parseInt(id.slice(id.indexOf(",") + 1, id.length));
+		squares.push([x, y]);
 	}
+
+
+	//do move logic checking here
+	if(this.firstMove && !isOnStar(squares)){
+		failureFunc("A tile must be placed on the star for the first move.");
+		return false;
+		
+	}
+	if(!isInRow(squares) && !isInCol(squares)){
+		failureFunc("All placed tiles must be in either the same row or the same column");
+		return false;
+	}
+
+	
+	//update the letters array
+	for(var i = 0; i < this.move.length; i++){
+		var id = this.move[i][0].attr("id");
+		var x = parseInt(id.slice(0, id.indexOf(",")));
+		var y = parseInt(id.slice(id.indexOf(",") + 1, id.length));
+		console.log(this.move);
+		if(this.letters[x][y] == null){
+			this.letters[x][y] = this.move[i][1].img;
+			
+		}
+		else{
+			console.error("trying to place tile where there is already a tile");
+		}
+		//rack.splice(rack.indexOf(this.move[i][1].img), 1);
+	}
+
+	
+	//call the update function for the new letters
+	this.update();
+	var oldMove = this.move;
+	this.move = [];
+	if(this.firstMove){
+		this.firstMove = false;
+	}
+	return oldMove;
 }
 
-	Board.prototype.setDroppable = function(){
-		var squares = this.cont.find(".square");
-		console.log(squares);
+//function to update the appearence of the board
+Board.prototype.update = function(){
+	var squares = this.cont.find(".square");
+		//console.log(squares);
 		for(var i = 0; i < squares.length; i++){
 			var id = String($(squares[i]).attr("id"));
-			console.log( id);
+			//console.log( id);
 			var x = id.slice(0, id.indexOf(","));
-			var y = id.slice(id.indexOf(","), id.length);
-			if(this.letters[x][y] == null){
-				$(squares[i]).droppable('enable');
-			}
-			else{
+			var y = id.slice(id.indexOf(",") + 1, id.length);
+			if(this.letters[x][y] != null){
+				//console.log($(squares[i]));
+				$(squares[i]).empty();
+				this.letters[x][y].css("position", "static");
+				this.letters[x][y].css("border", "0px");
+				$(squares[i]).append(this.letters[x][y].clone());
 				$(squares[i]).droppable('disable');
 			}
-		}
-		/*
-	for(var i = 0; i < this.letters.length; i++){
-			if(this.letters[i][j] == null){
-				console.log("#" + i.toString() + "," + j.toString());
-				$("" + i.toString() + "," + j.toString()).droppable('enable');
-				$("" + i.toString() + "," + j.toString()).css("background-color", "green")
-				/*
-				$("#" + i + "," + j).droppable({drop:handleDrop,
-								out: pickedUp });
-				.droppable( "option", "disabled", false );
-				console.log("got here, i = " + i + ", j = " + j);
-				console.log($("#" + i + "," + j));
-			}
-			else{	
-				$("#" + i + "," + j).droppable("disable");
+			else{
+				$(squares[i]).droppable('enable');
 			}
 		}
-	}*/
-		
-	}
+}
 
+
+//function to handdle the dropping of a draggable into a dropable
 function handleDrop(event, ui){
-	
-	ui.draggable.draggable({revert:false});
-	ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+	console.log("ui data = ");
+	console.log(ui.draggable);
+	console.log(ui.draggable.data("tile"));
+	$(this).data("board").move.push([$(this), ui.draggable.data("tile")]);
+	ui.draggable.draggable("option", "revert", false);
+	ui.draggable.position({ of: $(this), my: 'left top', at: 'left top' } );
 	ui.draggable.draggable("disable");
-	//console.log(ui.draggable.location);
-	ui.draggable.location = $(this).attr("id");
-	//console.log(ui.draggable.location);
-	$(this).droppable('disable');
-	//$(this).droppable('disable');*/
-	/*if($(this).find(".ui-draggable").length == 0){
-		
-		$(this).parent().append($(ui.draggable));
+	//console.log($(this).data("board").move);
+				     
+	
+};
 
-		console.log($(this));
-		$(ui).parent().remove($(ui.draggable));
-		$(this).css("position", "absolute");
-	}
-	else{
-		ui.draggable.position(oldPos);
-	}*/
+//tile object constructor
+function Tile(c){
+	this.c = c;
+	this.img = $("<img>");
+	this.img.attr("src", "tiles/Scrabble_Tile_" + c + ".jpg");
+	this.img.draggable({
+		containment:"#container",//		start: movedTile,
+		//stop: returnTile,
+		revert:true
+	});
+	this.img.addClass("tile");
+	this.img.data("tile", this);
+	//this.location = null;
+	//console.log("tile img = ");
+	//console.log(this.img);
+	return this;
 }
-var oldPos = null;
-function pickedUp(event, ui){
-	//console.log(event.target);
-	//$(event.target).css("position", "fixed");
+
+//function called when the reset rack button is pressed,
+//also clears the message in the message div
+function resetRack(){
+	//console.log(b);
+	clearMessage();
+	resetRackPositions();
 	
 }
-function movedTile(event, ui){
-	$(this).draggable({revert:true});
-	oldPos = $(this).position();
-	//console.log("got new position");
+//function to reset the positions of any tiles in the rack
+function resetRackPositions(){
+	b.move = [];
+	b.update();
+	for(var i = 0; i < rack.length; i++){
+		console.log("rack tile = ");
+		console.log(rack[i].img.data("tile"));
+		rack[i].img.animate({
+			top: "0px",
+			left: "0px"
+		});//removeAttr("style");
+		rack[i].img.draggable({
+		containment:"#container",//		start: movedTile,
+		//stop: returnTile,
+		revert:true
+	});
+		rack[i].img.draggable("enable");
+
+		//dont know why, but aparently jquery requires you refresh this....
+		//spent waaaay to much time on this crap
+		rack[i].img.data("tile", rack[i]);
+	}
+	
 }
 
-//function returnTile(event, ui){
-//	$(this).position(oldPos);
-//	oldPos = null;
-//}
-});
+//function to update the appearence of the rack
+function updateRack(rack, containerName){
+	//rack = fillRack(rack);
+	var cont = $("#" + containerName);
+	cont.empty();
+	for(var i = 0; i < rack.length; i++){
+		//console.log(rack[i].img);
+		//var tempDiv = $("<div>");
+		//tempDiv.droppable({drop:handleDrop});
+		rack[i].img.draggable();
+		rack[i].img.draggable("option", "containment", "#container");
+		rack[i].img.draggable("option", "revert", true);
+				      //start: movedTile,
+				      //stop: returnTile,
+				      
+				     //});
+		//tempDiv.append(rack[i].img);
+		//cont.append(tempDiv);
+		rack[i].img.data("tile", rack[i]);
+		cont.append(rack[i].img);
+	}
+	return rack;
+}
+
+//function to fill the rack until it has 7 tiles or there are no more tiles in dist
+function fillRack(r){
+	function getTile(){
+		
+		var total = 0;
+		for(var i = 0; i < dist.length; i++){
+			total += dist[i];
+		}
+		if(total <= 0){
+			return null;
+		}
+		console.log("total = " + total);
+		var rand = Math.floor(Math.random() * total);
+		console.log("rand = " + rand);
+		total = 0;
+		for(var i = 0; i < dist.length; i++){
+			if(rand < total){
+				dist[i]-=1;
+				console.log("i = " + i);
+				console.log("returning: " + String.fromCharCode(65 + i));
+				return String.fromCharCode(65 + i);
+				
+			}
+			total += dist[i];
+		}
+		return getTile();
+		console.error("shouldn't be getting here");
+	};
+
+	//for(var i = 0 ; i < r.length; i++){
+//		console.log("fillrack datas = ");
+	//	console.log(r[i].img.data("tile"));
+	//}
+	console.log("r = ");
+	console.log(r);
+	while(r.length < 7){
+		if(r.length > 0){
+			console.log(r[r.length - 1].c);
+		}
+		var c = (getTile());
+		console.log("c = "  + c);
+		if(c == null){
+			return r;
+		}
+		console.log("r = ");
+		console.log(r);
+		r.push(new Tile(c));
+		//console.log("data of new tile = ");
+		//console.log(r[r.length - 1].img.data("tile"));
+	}
+	
+	return r.slice();
+}
+
+
+//function to check if all tiles are in the same row
+function isInRow(squares){
+	if(squares.length <=0){
+		return false;
+	}
+	
+	var x = squares[0][0];
+	var ret = true;
+	for(var i = 0; i < squares.length; i++){
+		if(squares[i][0] != x){
+			ret = false;
+		}
+	}
+	return ret;
+}
+
+
+//function to check if all tiles are in the same column
+function isInCol(squares){
+	if(squares.length <=0){
+		return false;
+	}
+	var y = squares[0][1];
+	var ret = true;
+	for(var i = 0; i < squares.length; i++){
+		if(squares[i][1] != y){
+			ret = false;
+		}
+	}
+	return ret;
+}
+
+
+
+//function to check if a tile is on the star.
+function isOnStar(squares){
+	for(var i = 0; i < squares.length; i++){
+		if(squares[i][0] == 7 && squares[i][1] == 7){
+			return true;
+		}
+	}
+	for(var i = 0; i < squares.length; i++){
+		if(squares[i][0] == 7 && squares[i][1] == 7){
+			return true;
+		}
+	}
+	return false;
+}
